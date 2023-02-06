@@ -4,7 +4,7 @@ FROM python:3.10
 #move into this folder
 WORKDIR /app
 COPY requirements.txt .
-RUN pip install --noc-cache-dir --upgrade -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 #copies current folder in into current folder of image
 COPY . .
