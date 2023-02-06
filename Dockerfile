@@ -14,6 +14,6 @@ COPY . .
 #allows external container to make request to flask app running in container
 # CMD ["flask","run","--host","0.0.0.0"]
 
-CMD ['gunicorn',"--bind","0.0.0.0:80", "app:create_app()"]
+CMD ["gunicorn", "--bind", "0.0.0.0:80", "app:create_app()"]
 
 #contributing.md - show how to run dockerfile locally
