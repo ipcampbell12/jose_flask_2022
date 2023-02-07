@@ -5,10 +5,11 @@ from flask import Flask, jsonify
 from flask_smorest import Api
 from flask_jwt_extended import JWTManager
 from flask_migrate import Migrate
+from dotenv import load_dotenv
 
 from db import db
 from blocklist import BLOCKLIST
-# import models 
+import models 
 
 # #models need to have been imported so sqlalchemy can create our tables
 
@@ -31,9 +32,11 @@ from resources.user import blp as UserBlueprint
 #databse url argument in case you want to connect to a database
 def create_app(db_url=None):
     app = Flask(__name__)
+    load_dotenv()
+    #finds .env file from root of project and loads its contents; uses environment variable
 
     #configuration variables
-    app.config["PROPAGATE_EXCEPTIONS"] = True
+   
     app.config["API_TITLE"] = "Stores REST API"
     app.config['API_VERSION'] = "v1"
     app.config['OPENAPI_VERSION'] = '3.0.3'
@@ -43,6 +46,7 @@ def create_app(db_url=None):
     #if db_url exists, use that, otherwise, use the next one
     app.config['SQLALCHEMY_DATABASE_URI'] = db_url or os.getenv("DATABASE_URL","sqlite:///data.db")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=False
+    app.config["PROPAGATE_EXCEPTIONS"] = True
 
     #initializes flask sqlalchemy extension
     db.init_app(app)
@@ -134,10 +138,10 @@ def create_app(db_url=None):
             401,
         )
     
-    with app.app_context():
-        import models  # noqa: F401
+    # with app.app_context():
+    #     import models  # noqa: F401
 
-        db.create_all()
+    #     db.create_all()
 
 
     api.register_blueprint(ItemBlueprint)
