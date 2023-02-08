@@ -57,3 +57,7 @@ class UserSchema(Schema):
 
     #load only because you never wwant to return user's password (write only)
     password = fields.Str(required=True, load_only=True)
+
+#only need this for when useres register, now when they log in
+class UserRegisterSchema(UserSchema):
+    email = fields.Str(required=True)
